@@ -55,19 +55,21 @@ void lights() {
 }
 
 void loop() {
-  lights(); 
-  delay(1000); 
+  lights(); // Show the flat line
+  delay(1000); // Hold the flat line for 1 second
+  
   clear();
   displayState = SMILE;
-  lights(); 
-  delay(1000); 
+  lights(); // Show the flat line
+  delay(1000); // Hold the flat line for 1 second
   clear();
   displayState = SLOW;
-  lights(); 
+  lights(); // Show the flat line
+  delay(1000); // Hold the flat line for 1 second
   clear();
   displayState = FLAT;
-  lights(); 
-  delay(1000); 
+  lights(); // Show the flat line
+  delay(1000); // Hold the flat line for 1 second
   clear();
   
 }
