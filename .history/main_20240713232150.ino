@@ -37,7 +37,7 @@ byte decloration[3][16] = {
 
 
 
-byte led_patterns[4][16] = {
+byte matrex[4][16] = {
     {21,22,23,24,25,26,27, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Flat
     {40,42,30,31,32,36,48, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Smile
     { 0, 6, 8,12,16,17,18, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Slow
@@ -45,43 +45,42 @@ byte led_patterns[4][16] = {
 };
 
 CRGB leds[NUM_LEDS];
-DisplayState current_display_state = FLAT;
 
 void setup() {
-  FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
+    FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
 }
 
-void display_pattern(DisplayState state) {
-  for (int led_index = 0; led_index < NUM_LEDS; led_index++) {
-    leds[led_index] = CRGB::Black;  // Clear all LEDs
-  }
-
-  // Activate LEDs based on the selected pattern
-  byte* current_pattern = led_patterns[(int)state];
-  bool lock = false;
-  for (int pattern_index = 0; pattern_index < 16; pattern_index++) {
-    if (current_pattern[pattern_index] > 0 || lock == false){
-      lock = true;
-      leds[current_pattern[pattern_index]] = CRGB::Red;
+void clear() {
+    for (int counter = 0; counter < NUM_LEDS; counter++) {
+        leds[counter] = CRGB::Black;  // Set the first LED to black
     }
-  }
-  FastLED.show();
+    FastLED.show();
+}
+
+void lights(DisplayState state) {
+    clear();
+    byte* currentState = matrex[(int)state];
+    for (int counter = 0; counter < 16; counter++) {
+        if (counter < 1 || currentState[counter] > 0){
+            leds[currentState[counter]] = CRGB::Red;  // Set the LED to red
+        }
+    }
+    FastLED.show();
+}
+
+void changeState(DisplayState newState) {
+    lights(displayState);
+    delay(DELAY_TIME);
+    clear();
+    displayState = newState;
 }
 
 void loop() {
-  display_pattern(SMILE);
-  delay(DELAY_TIME);
-
-  display_pattern(SLOW);
-  delay(DELAY_TIME);
-
-  display_pattern(FLAT);
-  delay(DELAY_TIME);
-
-  display_pattern(STOP);
-  delay(DELAY_TIME);
+    changeState(SMILE);
+    changeState(SLOW);
+    changeState(FLAT);
+    changeState(STOP);
 }
-
 // # I would like a set of arrays that will allow me to fade from one image to another.
 // # I would like to be able to fade from one image to another.
 
