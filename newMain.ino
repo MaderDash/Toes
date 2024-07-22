@@ -31,13 +31,6 @@ enum DisplayState {
  0  1  2  3  4  5  6
 */
 
-// LED patterns for each state
-byte led_patterns[4][NUM_PATTERN_LEDS] = {
-  {21, 22, 23, 24, 25, 26, 27,  0,  0,  0,  0,  0,  0,  0,  0,  0}, // Flat
-  {40, 42, 30, 31, 32, 36, 48,  0,  0,  0,  0,  0,  0,  0,  0,  0}, // Smile
-  { 0,  6,  8, 12, 16, 17, 18,  0,  0,  0,  0,  0,  0,  0,  0,  0}, // Slow
-  { 2,  3,  4,  8, 12, 14, 20, 21, 27, 28, 34, 36, 40, 44, 45, 46}  // Stop
-};
 
 // Acceleration patterns (from FLAT to SMILE)
 byte acceleration[2][16] = {
@@ -51,6 +44,13 @@ byte deceleration[2][16] = {
   { 7, 19, 23, 24, 25, 13, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 };
 
+// LED patterns for each state
+byte led_patterns[4][NUM_PATTERN_LEDS] = {
+  {21, 22, 23, 24, 25, 26, 27,  0,  0,  0,  0,  0,  0,  0,  0,  0}, // Flat
+  {40, 42, 30, 31, 32, 36, 48,  0,  0,  0,  0,  0,  0,  0,  0,  0}, // Smile
+  { 0,  6,  8, 12, 16, 17, 18,  0,  0,  0,  0,  0,  0,  0,  0,  0}, // Slow
+  { 2,  3,  4,  8, 12, 14, 20, 21, 27, 28, 34, 36, 40, 44, 45, 46}  // Stop
+};
 CRGB leds[NUM_LEDS];
 DisplayState current_display_state = FLAT;
 
